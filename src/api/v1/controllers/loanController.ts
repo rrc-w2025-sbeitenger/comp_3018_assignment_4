@@ -1,10 +1,10 @@
 import { HTTP_STATUS } from "../../../constants/httpConstant";
 import { HealthCheckResponse } from "../models/healthCheckResponse";
-//import { AllLoansResponse } from "../models/allLoansResponse";
+import { AllLoansResponse } from "../models/allLoansResponse";
 import { Request, Response } from "express";
 import { 
     getHealthStatusService,
-     //getAllLoansService
+     getAllLoansService
      } from "../services/loanServices";
 
 
@@ -14,8 +14,8 @@ export const getHealthCheck = (req: Request, res: Response): void => {
 }
 
 export const getAllLoans = (req:Request, res:Response): void => {
-    //const allProjects: AllLoansResponse = getAllLoansService();
-    //res.status(HTTP_STATUS.OK).json(allProjects);
+    const allProjects: AllLoansResponse = getAllLoansService();
+    res.status(HTTP_STATUS.OK).json(allProjects);
 }
 
 export const getLoanById = (req:Request, res:Response): void => {

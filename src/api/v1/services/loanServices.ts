@@ -1,6 +1,6 @@
 import { HealthCheckResponse } from "../models/healthCheckResponse";
-//import { AllLoansResponse } from "../models/allLoansResponse";
-//import { loanApplicantData } from "src/data/data";
+import { AllLoansResponse } from "../models/allLoansResponse";
+import { loanApplicantData } from "src/data/data";
 import { HTTP_STATUS } from "src/constants/httpConstant";
 
 export const getHealthStatusService = (): HealthCheckResponse => {
@@ -9,5 +9,11 @@ export const getHealthStatusService = (): HealthCheckResponse => {
         uptime: process.uptime(),
         timestamp: new Date().toISOString(),
         version: '1.0.0'
+    };
+}
+
+export const getAllLoansService = (): AllLoansResponse => {
+    return{
+        allLoans: loanApplicantData
     };
 }
