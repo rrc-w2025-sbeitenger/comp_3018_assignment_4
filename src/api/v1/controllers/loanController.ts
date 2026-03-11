@@ -7,7 +7,8 @@ import {
     getHealthStatusService,
      getAllLoansService,
       getLoanByIdService,
-       createLoanService
+       createLoanService,
+        updateLoanService
      } from "../services/loanServices";
 
 
@@ -52,8 +53,30 @@ export const createLoan = (req: Request, res: Response): void => {
     res.status(HTTP_STATUS.OK).json(newLoan);
 }
 
-export const updateLoan = (req:Request, res:Response): void => {
-    res.status(HTTP_STATUS.OK).json("update a laon");
+export const updateLoan = (req: Request, res: Response): void => {
+    const selectedLoanId: number = Number(req.params.id);
+
+    //! change later!
+    if(isNaN(selectedLoanId) || selectedLoanId <= 0){
+        res.status(HTTP_STATUS.BAD_REQUEST).json({message: "Bad Request."});
+        return;   
+    };
+
+    const id: number = Number(req.body.id);
+    const name: string = req.body.name;
+    const amount: number = Number(req.body.name);
+    const status: string = req.body.status;
+    const createdAt: string = req.body.createdAt;
+
+    const updatedLoan: loanApplicant | false =  updateLoanService(selectedLoanId, id, name, amount, status, createdAt);
+
+    //! change later!
+    if(updatedLoan === false){
+        res.status(HTTP_STATUS.NOT_FOUND).json({message: "Not Found."});
+        return;
+    } else {
+        res.status(HTTP_STATUS.OK).json(updatedLoan);
+    }
 }
 
 export const deleteLoan = (req:Request, res:Response): void => {
