@@ -1,7 +1,8 @@
 import { HealthCheckResponse } from "../models/healthCheckResponse";
 import { AllLoansResponse } from "../models/allLoansResponse";
-import { loanApplicantData } from "src/data/data";
-import { HTTP_STATUS } from "src/constants/httpConstant";
+import { loanApplicantData } from "../../../data/data";
+import { loanApplicant } from "../models/loanApplication";
+import { HTTP_STATUS } from "../../../constants/httpConstant";
 
 export const getHealthStatusService = (): HealthCheckResponse => {
     return {
@@ -16,4 +17,9 @@ export const getAllLoansService = (): AllLoansResponse => {
     return{
         allLoans: loanApplicantData
     };
+}
+
+export const getLoanByIdService = (loanId:number): loanApplicant | undefined => {
+    const loan: loanApplicant | undefined = loanApplicantData.find(x => x.id == loanId);
+    return loan;
 }

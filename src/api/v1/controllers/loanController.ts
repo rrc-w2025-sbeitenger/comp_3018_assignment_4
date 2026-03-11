@@ -2,9 +2,11 @@ import { HTTP_STATUS } from "../../../constants/httpConstant";
 import { HealthCheckResponse } from "../models/healthCheckResponse";
 import { AllLoansResponse } from "../models/allLoansResponse";
 import { Request, Response } from "express";
+import { loanApplicant } from "../models/loanApplication";
 import { 
     getHealthStatusService,
-     getAllLoansService
+     getAllLoansService,
+      getLoanByIdService
      } from "../services/loanServices";
 
 
@@ -19,7 +21,22 @@ export const getAllLoans = (req:Request, res:Response): void => {
 }
 
 export const getLoanById = (req:Request, res:Response): void => {
-    res.status(HTTP_STATUS.OK).json("get single loan!");
+    const loanId: number = Number(req.params.id);
+
+    //! change later
+    if(isNaN(loanId) || loanId <= 0){
+        res.status(HTTP_STATUS.BAD_REQUEST).json({message: "Bad Request."});
+        return;
+    }
+
+    const selectedProject: loanApplicant | undefined = getLoanByIdService(loanId);
+
+    if(!selectedProject){
+        res.status(HTTP_STATUS.NOT_FOUND).json({message: "Not Found."});
+        return;
+    } else {
+        res.status(HTTP_STATUS.OK).json(selectedProject);
+    }
 }
 
 export const createLoan = (req:Request, res:Response): void => {
