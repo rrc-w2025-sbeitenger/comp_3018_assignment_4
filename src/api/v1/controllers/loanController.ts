@@ -8,9 +8,9 @@ import {
      getAllLoansService,
       getLoanByIdService,
        createLoanService,
-        updateLoanService
+        updateLoanService,
+         deleteLoanService
      } from "../services/loanServices";
-
 
 export const getHealthCheck = (req: Request, res: Response): void => {
     const healthStatus: HealthCheckResponse = getHealthStatusService();
@@ -79,6 +79,20 @@ export const updateLoan = (req: Request, res: Response): void => {
     }
 }
 
-export const deleteLoan = (req:Request, res:Response): void => {
-    res.status(HTTP_STATUS.OK).json("delete a laon");
+export const deleteLoan = (req: Request, res: Response): void => {
+    const id: number = Number(req.params.id);
+
+    //! change later!
+    if(isNaN(id) || id <= 0){
+        res.status(HTTP_STATUS.BAD_REQUEST).json({message: "Bad Request."});
+        return;
+    };
+
+    const deletedLoan: loanApplicant | false = deleteLoanService(id); 
+    if(deletedLoan === false){
+        res.status(HTTP_STATUS.NOT_FOUND).json({message: "Not Found."});
+        return;
+    }
+
+    res.status(HTTP_STATUS.OK).json(deletedLoan);
 }

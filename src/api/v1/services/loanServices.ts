@@ -61,3 +61,16 @@ export const updateLoanService = (selectedId: number, id: number, name:string, a
 
     return updatedApplicantLoan;
 }
+
+export const deleteLoanService = (id:number): loanApplicant | false=> {
+    const loanIndex: number = loanApplicantData.findIndex(x => x.id === id);
+    //not in range of array.
+    if(loanIndex === -1){
+        return false;
+    }
+
+    //splice out the ticket without replacing it.
+    const deletedLoan: loanApplicant[] = loanApplicantData.splice(loanIndex, 1);
+    return deletedLoan[0];
+    //return `Ticket: ${id} was removed!`;
+}
