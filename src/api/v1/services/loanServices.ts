@@ -26,3 +26,18 @@ export const getLoanByIdService = (loanId:number): loanApplicant | undefined => 
     const loan: loanApplicant | undefined = loanApplicantData.find(x => x.id == loanId);
     return loan;
 }
+
+export const createLoanService = (id:number, name:string, amount:number, status: string, createdAt:string): loanApplicant => {
+    const newLoan: loanApplicant = {
+        id: id ,
+        applicant: name,
+        amount: amount,
+        status: status,
+        createdAt: createdAt
+    }
+
+    loanApplicantData.push(newLoan);
+
+    return newLoan;  
+
+}

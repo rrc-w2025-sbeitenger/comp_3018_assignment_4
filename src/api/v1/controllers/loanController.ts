@@ -6,7 +6,8 @@ import { loanApplicant } from "../models/loanApplication";
 import { 
     getHealthStatusService,
      getAllLoansService,
-      getLoanByIdService
+      getLoanByIdService,
+       createLoanService
      } from "../services/loanServices";
 
 
@@ -39,8 +40,16 @@ export const getLoanById = (req:Request, res:Response): void => {
     }
 }
 
-export const createLoan = (req:Request, res:Response): void => {
-    res.status(HTTP_STATUS.OK).json("create a laon");
+export const createLoan = (req: Request, res: Response): void => {
+    const id: number = Number(req.body.id);
+    const name: string = req.body.name;
+    const number: number = req.body.number;
+    const status: string = req.body.status;
+    const createdAt: string = req.body.createdAt;
+
+    //! add validation later.
+    const newLoan: loanApplicant = createLoanService(id, name, number, status, createdAt);
+    res.status(HTTP_STATUS.OK).json(newLoan);
 }
 
 export const updateLoan = (req:Request, res:Response): void => {
