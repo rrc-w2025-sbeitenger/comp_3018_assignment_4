@@ -3,8 +3,8 @@ import { Request, Response, NextFunction } from "express";
 
 // Internal module imports
 import { auth } from "../../../config/firebaseConfig";
-//import { successResponse } from "../models/responseModel";
 import { HTTP_STATUS } from "../../../constants/httpConstant";
+import { SetCustomClaimsRequest } from "../models/setCustomClaimsRequest";
 
 /**
  * Handles setting custom claims (roles) for a user.
@@ -23,18 +23,16 @@ export const setCustomClaims = async (
     res: Response,
     next: NextFunction
 ): Promise<void> => {
-    //const { uid, claims } = req.body;
-    const userClaimsToSet = req.body;
+    //destructring to pull uid and claims from body into their own vars.
+    const { uid, claims }: SetCustomClaimsRequest = req.body;
+    //const userClaimsToSet = req.body;
 
     try {
         //Set custom claims on the user's Firebase account
-        //! create interface for this!
-        await auth.setCustomUserClaims(userClaimsToSet.uid, userClaimsToSet.claims);
+        await auth.setCustomUserClaims(uid, claims);
 
         res.status(HTTP_STATUS.OK).json(
-                "Custom claims set for user"
-                //`Custom claims set for user: ${uid}. User must obtain a new token for changes to take effect.`
-
+                `Custom claims set for user: ${uid}. User must obtain a new token for changes to take effect.`
         );
     } catch (error) {
         next(error);
