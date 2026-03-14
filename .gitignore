@@ -1,7 +1,6 @@
 node_modules/
 dist/
 fb_key.json
-fb_api_key.ts
 #logs
 logs/
 *.log
