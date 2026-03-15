@@ -13,6 +13,7 @@ import {
 const router:Router = express.Router();
 
 router.get("/health", getHealthCheck);
+
 //autheticate check if token is valid or not.
 //isAuthorized checks if token contains the required role.
 router.get("/loans", authenticate, isAuthorized({hasRole: ["admin", "manager", "officer"]}), getAllLoans);
@@ -20,6 +21,5 @@ router.get("/loans/:id", authenticate, isAuthorized({hasRole: ["admin", "manager
 router.post("/loans", authenticate, isAuthorized({hasRole: ["admin", "manager"], allowSameUser: true}), createLoan);
 router.put("/loans/:id", authenticate, isAuthorized({hasRole: ["admin", "manager"], allowSameUser: true}), updateLoan);
 router.delete("/loans/:id", authenticate, isAuthorized({hasRole: ["admin"], allowSameUser: true}), deleteLoan);
-router.post("/auth/signIn", isAuthorized({hasRole: ["admin", "manager", "officer"], allowSameUser: true}));
 
 export default router;

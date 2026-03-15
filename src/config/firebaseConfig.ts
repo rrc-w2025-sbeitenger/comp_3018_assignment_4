@@ -7,6 +7,7 @@ initializeApp({
     credential: cert(serviceAccount as ServiceAccount),
 });
 
+//allows us to use firebase authentication system, the auth object provides some authenication methods
 const auth: Auth = getAuth();
 
 const db: Firestore = getFirestore();

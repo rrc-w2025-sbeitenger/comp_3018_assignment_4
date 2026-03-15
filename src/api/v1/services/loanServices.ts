@@ -29,7 +29,7 @@ export const getLoanByIdService = (loanId:number): loanApplicant | undefined => 
 
 export const createLoanService = (id:number, name:string, amount:number, status: string, createdAt:string): loanApplicant => {
     const newLoan: loanApplicant = {
-        id: id ,
+        id: id,
         applicant: name,
         amount: amount,
         status: status,

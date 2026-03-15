@@ -12,7 +12,7 @@ import {
          deleteLoanService
      } from "../services/loanServices";
 
-//! no or minimal validation is added since that is not the focus of the application.
+//! no or minimal validation is added since the focus of the application is authenicate.
 export const getHealthCheck = (req: Request, res: Response): void => {
     const healthStatus: HealthCheckResponse = getHealthStatusService();
     res.status(HTTP_STATUS.OK).json(healthStatus);
