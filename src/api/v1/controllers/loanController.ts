@@ -12,6 +12,7 @@ import {
          deleteLoanService
      } from "../services/loanServices";
 
+//! no or minimal validation is added since that is not the focus of the application.
 export const getHealthCheck = (req: Request, res: Response): void => {
     const healthStatus: HealthCheckResponse = getHealthStatusService();
     res.status(HTTP_STATUS.OK).json(healthStatus);
@@ -25,7 +26,6 @@ export const getAllLoans = (req:Request, res:Response): void => {
 export const getLoanById = (req:Request, res:Response): void => {
     const loanId: number = Number(req.params.id);
 
-    //! change later
     if(isNaN(loanId) || loanId <= 0){
         res.status(HTTP_STATUS.BAD_REQUEST).json({message: "Bad Request."});
         return;
@@ -43,34 +43,31 @@ export const getLoanById = (req:Request, res:Response): void => {
 
 export const createLoan = (req: Request, res: Response): void => {
     const id: number = Number(req.body.id);
-    const name: string = req.body.name;
-    const number: number = req.body.number;
+    const applicant: string = req.body.applicant;
+    const amount: number = Number(req.body.amount);
     const status: string = req.body.status;
     const createdAt: string = req.body.createdAt;
 
-    //! add validation later.
-    const newLoan: loanApplicant = createLoanService(id, name, number, status, createdAt);
-    res.status(HTTP_STATUS.OK).json(newLoan);
+    const newLoan: loanApplicant = createLoanService(id, applicant, amount, status, createdAt);
+    res.status(HTTP_STATUS.CREATED).json(newLoan);
 }
 
 export const updateLoan = (req: Request, res: Response): void => {
     const selectedLoanId: number = Number(req.params.id);
 
-    //! change later!
     if(isNaN(selectedLoanId) || selectedLoanId <= 0){
         res.status(HTTP_STATUS.BAD_REQUEST).json({message: "Bad Request."});
         return;   
     };
 
     const id: number = Number(req.body.id);
-    const name: string = req.body.name;
-    const amount: number = Number(req.body.name);
+    const applicant: string = req.body.applicant;
+    const amount: number = Number(req.body.amount);
     const status: string = req.body.status;
     const createdAt: string = req.body.createdAt;
 
-    const updatedLoan: loanApplicant | false =  updateLoanService(selectedLoanId, id, name, amount, status, createdAt);
+    const updatedLoan: loanApplicant | false =  updateLoanService(selectedLoanId, id, applicant, amount, status, createdAt);
 
-    //! change later!
     if(updatedLoan === false){
         res.status(HTTP_STATUS.NOT_FOUND).json({message: "Not Found."});
         return;
@@ -82,7 +79,6 @@ export const updateLoan = (req: Request, res: Response): void => {
 export const deleteLoan = (req: Request, res: Response): void => {
     const id: number = Number(req.params.id);
 
-    //! change later!
     if(isNaN(id) || id <= 0){
         res.status(HTTP_STATUS.BAD_REQUEST).json({message: "Bad Request."});
         return;
