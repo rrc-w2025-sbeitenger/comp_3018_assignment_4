@@ -6,7 +6,19 @@
  * @param {string} code - The error code for programmatic handling.
  * @returns {object} A formatted error response object.
  */
-export const errorResponse = (message: string, code: string) => ({
+
+interface ErrorRes{
+    success: boolean;
+    error: Error;
+    timestamp: string;
+}
+
+interface Error{
+    message: string;
+    code: string;
+}
+
+export const errorResponse = (message: string, code: string): ErrorRes => ({
     success: false,
     error: {
         message,

@@ -3,13 +3,13 @@ import fs from "fs";
 import path from "path";
 
 // Ensure logs directory exists
-const logsDir = path.join(__dirname, "../../../logs");
+const logsDir: string = path.join(__dirname, "../../../logs");
 if (!fs.existsSync(logsDir)) {
     fs.mkdirSync(logsDir, { recursive: true });
 }
 
 // Create a write stream (in append mode) for access logs
-const accessLogStream = fs.createWriteStream(path.join(logsDir, "access.log"), {
+const accessLogStream: fs.WriteStream = fs.createWriteStream(path.join(logsDir, "access.log"), {
     flags: "a",
 });
 

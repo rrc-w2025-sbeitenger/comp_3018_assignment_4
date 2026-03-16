@@ -14,7 +14,7 @@ export const getHealthStatusService = (): HealthCheckResponse => {
 }
 
 export const getAllLoansService = (): AllLoansResponse => {
-    const count = loanApplicantData.length + 1;
+    const count: number = loanApplicantData.length + 1;
     return{
         message: "Loan applications retrieved",
         count: count,
