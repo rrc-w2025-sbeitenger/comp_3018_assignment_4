@@ -1,2 +1,6 @@
 node_modules/
 dist/
+fb_key.json
+#logs
+logs/
+*.log
